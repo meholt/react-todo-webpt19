@@ -1,5 +1,8 @@
 import React from 'react';
 
+// Styling
+import '../src/components/Todo.css';
+
 // Components
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
@@ -79,7 +82,7 @@ class App extends React.Component {
           toggleTask={this.toggleTask}
           clearCompleted={this.clearCompleted}
         />
-        
+
       </div>
     );
   }
