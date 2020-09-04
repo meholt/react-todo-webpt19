@@ -1,17 +1,18 @@
 import React from 'react';
 
 // Components
-
+import TodoForm from './components/TodoForm';
+import TodoList from './components/TodoList';
 
 const list = [
   {
       task: 'Start React Project',
-      id: 0001,
+      id: 4564654,
       complete: false
   },
   {
       task: 'Study Advanced React',
-      id: 0002,
+      id: 45646548,
       complete: false
   }
 ];
@@ -25,20 +26,20 @@ class App extends React.Component {
   constructor(){
     super();
     this.state = {
-      item: item
+      tasks: list
     };
   }
 
   // Action to take to add new task to list... needs to be passed to component
-  addTask = (e, task) => {
+  addTask = (e, taskName) => {
     e.preventDefault();
     const newTask = {
-      task: task,
+      task: taskName,
       id: Date.now(), //generates unique ID,
       completed: false, //initially set to false 
     };
     this.setState({
-      task: [...this.state.task, newTask]
+      tasks: [...this.state.tasks, newTask]
     })
   }
 
@@ -47,10 +48,11 @@ class App extends React.Component {
     console.log('toggleTask taskId', taskId);
     this.setState({
       //Mapping over the task and checking to see if the IDs match, toggle completed
-      task: this.state.task.map(task => {
+      tasks: this.state.tasks.map(task => {
         if (taskId === task.id) {
           return {
-            ...task, completed: !task.completed
+            ...task,
+            completed: !task.completed
           }
         }
         return task;
@@ -62,7 +64,7 @@ class App extends React.Component {
   clearCompleted = e => {
     e.preventDefault();
     this.setState({
-      task: this.state.task.filter(task => !task.completed)
+      tasks: this.state.tasks.filter(task => !task.completed)
     })
   }
 
@@ -70,6 +72,14 @@ class App extends React.Component {
     return (
       <div>
         <h2>Welcome to your Todo App!</h2>
+
+        <TodoForm addTask={this.addTask} />
+        <TodoList 
+          tasks={this.state.tasks}
+          toggleTask={this.toggleTask}
+          clearCompleted={this.clearCompleted}
+        />
+        
       </div>
     );
   }
